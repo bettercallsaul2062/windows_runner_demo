@@ -1,0 +1,17 @@
+name: Simple File Copy With GitHub Runner
+on: [workflow_dispatch]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.REMOTE_IP }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        source: "foo.txt"
+        target: stuff
